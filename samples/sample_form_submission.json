@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-01-05T15:45:00Z",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "+1234567890",
+  "request_type": "Consultation",
+  "deadline": "2026-01-10"
+}
