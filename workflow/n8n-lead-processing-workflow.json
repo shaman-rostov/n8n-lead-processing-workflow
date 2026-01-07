@@ -1,0 +1,349 @@
+{
+  "name": "Form-CRM-Telegram-Calendar-Trello",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "1 * * * * *"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1wXRcNDr9lgBUB2GmOEW8_SXwGsqFBFS2xgHFH91ddyA",
+          "mode": "list",
+          "cachedResultName": "Automation with n8n (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXRcNDr9lgBUB2GmOEW8_SXwGsqFBFS2xgHFH91ddyA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1663445776,
+          "mode": "list",
+          "cachedResultName": "Form responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wXRcNDr9lgBUB2GmOEW8_SXwGsqFBFS2xgHFH91ddyA/edit#gid=1663445776"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "972c8a4b-7a04-4cde-856a-c2460b0e9eb0",
+      "name": "Google Sheets Trigger",
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "iGX14dfViUg02BZF",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c59d7d6e-6ab8-4dbc-af05-9ca7f66e4eac",
+              "name": "Timestamp",
+              "value": "={{ $json.Timestamp }}",
+              "type": "string"
+            },
+            {
+              "id": "d599645b-0f72-46a2-a8f6-9dc8c7dfbf33",
+              "name": "Full Name",
+              "value": "={{ $json['Full Name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "55545389-79c1-459d-a266-b73d3aff74d7",
+              "name": "Email",
+              "value": "={{ $json.Email }}",
+              "type": "string"
+            },
+            {
+              "id": "f14c17b1-3bae-4430-8a22-0cc463944d21",
+              "name": "Telegram / WhatsApp",
+              "value": "={{ $json['Telegram / WhatsApp'] }}",
+              "type": "string"
+            },
+            {
+              "id": "3c290908-1490-4bd8-88cf-aa0bcedc797e",
+              "name": "Time Zone",
+              "value": "={{ $json['Time Zone'] }}",
+              "type": "string"
+            },
+            {
+              "id": "70aac207-8168-4ede-9fb6-35b6c57945b0",
+              "name": "Link to your Instagram account",
+              "value": "={{ $json['Link to your Instagram account'] }}",
+              "type": "string"
+            },
+            {
+              "id": "9adf1a64-db26-472f-87c3-6035ed69a552",
+              "name": "Select all that apply",
+              "value": "={{ $json['Select all that apply'] }}",
+              "type": "string"
+            },
+            {
+              "id": "db158e93-80a4-4a09-9c1d-9d0ca58eda9e",
+              "name": "What types of content?",
+              "value": "={{ $json['What types of content?'] }}",
+              "type": "string"
+            },
+            {
+              "id": "d6ec1236-0ecc-47c2-a4db-309c088bab8e",
+              "name": "Posting Frequency",
+              "value": "={{ $json['Posting Frequency'] }}",
+              "type": "string"
+            },
+            {
+              "id": "f756f556-0e22-4fcb-9c29-802c323b1cb3",
+              "name": "Desired launch date",
+              "value": "={{ $json['Desired launch date'] }}",
+              "type": "string"
+            },
+            {
+              "id": "f5ef4b23-7b9a-405d-b367-2e0db1aac277",
+              "name": "Are you ready to pay for required SaaS services (Meta API, hosting, etc.)?",
+              "value": "={{ $json['Are you ready to pay for required SaaS services (Meta API, hosting, etc.)?'] }}",
+              "type": "string"
+            },
+            {
+              "id": "97116e71-3949-4177-9bec-a9a6c9381d17",
+              "name": "Open text field",
+              "value": "={{ $json['Open text field'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "523a7e1d-bc22-4776-9873-60ef2ccf0edf",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "additionalFields": {
+          "emailOptions": {
+            "emailProperties": [
+              {
+                "subtype": "work",
+                "email": "={{ $json.Email }}"
+              }
+            ]
+          },
+          "firstName": "={{ $json['Full Name'] }}",
+          "phoneOptions": {
+            "phoneProperties": [
+              {
+                "subtype": "mobile",
+                "number": "={{ $json['Telegram / WhatsApp'] }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.agileCrm",
+      "typeVersion": 1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "465185b8-313a-42da-8045-1e61a7cd7b6e",
+      "name": "Create a сontact in CRM",
+      "notesInFlow": false,
+      "credentials": {
+        "agileCrmApi": {
+          "id": "XEiuYiQGQmYRpowe",
+          "name": "AgileCRM account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-4995417831",
+        "text": "={{ $json.Timestamp }}\nNew client: {{ $json['Full Name'] }}\nE-mail: {{ $json.Email }}\nPhone: {{ $json['Telegram / WhatsApp'] }}\n\nSummary:\nLink Ins: {{ $json['Link to your Instagram account'] }}\nData from: {{ $json['Select all that apply'] }}\n\nDeadline: {{ $json['Desired launch date'] }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        176
+      ],
+      "id": "a35800ba-4e87-4dca-bb03-6efff665a931",
+      "name": "Send a message about deal",
+      "webhookId": "aa4d953c-0c7b-447d-a61f-db86bbc32e23",
+      "credentials": {
+        "telegramApi": {
+          "id": "Y7eE303BPSXql0So",
+          "name": "для отправки на @TlgPythonRssbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "shaman.rostov@gmail.com",
+          "mode": "list",
+          "cachedResultName": "shaman.rostov"
+        },
+        "start": "={{ $now.plus(20, 'hour') }}",
+        "end": "={{ $now.plus(24, 'hour') }}",
+        "additionalFields": {
+          "summary": "=New deal from: {{ $('Google Sheets Trigger').item.json['Full Name'] }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        624,
+        176
+      ],
+      "id": "58c7f7cb-53ea-4ab6-ba4c-fbc66b42bb1a",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MXKckrXch1sBVudC",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "listId": "=692780b33057dbd595456868",
+        "name": "=Client:  {{ $json['Full Name'] }}",
+        "description": "=Summary:  \nInstagram:  {{ $json['Link to your Instagram account'] }}\nData from: {{ $json['Select all that apply'] }}\nType of content: {{ $json['What types of content?'] }}\nPosting Frequency: {{ $json['Posting Frequency'] }}\n\nAdditional info: {{ $json['Open text field'] }}",
+        "additionalFields": {
+          "due": "={{ $json.dateForTrello }}"
+        }
+      },
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        624,
+        -160
+      ],
+      "id": "7747a261-bc31-467d-b03f-d3396b4cf479",
+      "name": "Create a card",
+      "credentials": {
+        "trelloApi": {
+          "id": "BBCgyBeWHv4XT0qE",
+          "name": "Trello account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// === n8n Function / Function Item node ===\n\nconst items = $input.all(); // на всякий случай поддерживаем несколько элементов\n\nreturn items.map(item => {\n  const rawDate = item.json['Desired launch date'];\n\n  let date;\n\n  // Проверка на пустое/отсутствующее значение\n  if (!rawDate || rawDate.toString().trim() === '') {\n    // Сегодня + 24 часа\n    date = new Date();\n    date.setHours(date.getHours() + 24);\n  } else {\n    // Приводим к строке и убираем лишние пробелы\n    const dateStr = rawDate.toString().trim();\n\n    // Разбиваем по слэшу и/или пробелу: \"24/12/2025\" или \"24/12/2025 14:30\"\n    const parts = dateStr.split(/[/\\s]+/); // ['24', '12', '2025', '14:30'] или ['24', '12', '2025']\n\n    const day = parts[0];\n    const month = parts[1];\n    const year = parts[2];\n    const time = parts[3]; // может быть undefined\n\n    if (time) {\n      // Есть время: 14:30 или 14:30:00\n      const [hours, minutes = 0, seconds = 0] = time.split(':').map(Number);\n      // Создаём дату в локальном времени пользователя, потом переведём в UTC\n      date = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds));\n    } else {\n      // Только дата — ставим 00:00:00 UTC\n      date = new Date(Date.UTC(year, month - 1, day));\n    }\n  }\n\n  // Убеждаемся, что дата валидна\n  if (isNaN(date.getTime())) {\n    throw new Error(`Не удалось распарсить дату: \"${rawDate}\"`);\n  }\n\n  return {\n    json: {\n      ...item.json,\n      dateIso: date.toISOString(),          // \"2025-12-24T00:00:00.000Z\"\n      dateObject: date,                     // объект Date (n8n тоже понимает)\n      dateForTrello: date.toISOString(),    // Trello любит именно ISO в UTC\n      // При желании можно добавить удобные для чтения поля:\n      // dateLocal: date.toLocaleString('ru-RU'),\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -160
+      ],
+      "id": "b65737ae-357d-4705-837b-df6865f3a6fe",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message about deal",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a сontact in CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a сontact in CRM": {
+      "main": [
+        []
+      ]
+    },
+    "Send a message about deal": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "main": [
+        []
+      ]
+    },
+    "Create a card": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create a card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9cc7c122-ca34-4cbd-b182-24f29a6a48aa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6fdffd940592a88141c2949b5a414108c8f28cea3e3e662c7647379501496c23"
+  },
+  "id": "ESKkUYQqhEdONWqQ",
+  "tags": []
+}
